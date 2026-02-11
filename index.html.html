@@ -3,83 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبار نافس التجريبي 2026 - مدرسة سعيد بن المسيب</title>
+    <title>نافس 2026 - الأعداد والعمليات</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary-color: #5d8aa8; --secondary-color: #f0f4f8; --success-color: #8fbc8f; --error-color: #e9967a; --text-color: #333; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--secondary-color); color: var(--text-color); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        .header { text-align: center; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); width: 100%; max-width: 800px; margin-bottom: 20px; }
-        .quiz-container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 800px; text-align: center; }
-        .question-text { font-size: 22px; font-weight: bold; margin-bottom: 30px; }
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
-        .option-btn { padding: 15px; font-size: 18px; border: 2px solid #e0e0e0; border-radius: 12px; background: white; cursor: pointer; transition: 0.3s; }
-        .correct { background-color: var(--success-color) !important; color: white; }
-        .wrong { background-color: var(--error-color) !important; color: white; }
-        .nav-btn { background-color: var(--primary-color); color: white; border: none; padding: 12px 30px; border-radius: 10px; font-size: 18px; cursor: pointer; display: none; }
+        :root {
+            --primary-color: #5d8aa8; 
+            --secondary-color: #f0f4f8;
+            --success-color: #8fbc8f; 
+            --error-color: #e9967a; 
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 700px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 { color: var(--primary-color); margin: 0; font-size: 22px; }
+        .header p { margin: 5px 0; font-size: 16px; color: #666; }
+
+        .quiz-container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .question-text {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .option-btn {
+            padding: 15px;
+            font-size: 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .option-btn:hover { border-color: var(--primary-color); background: #f9f9f9; }
+        .correct { background-color: var(--success-color) !important; color: white; border-color: var(--success-color); }
+        .wrong { background-color: var(--error-color) !important; color: white; border-color: var(--error-color); }
+
+        .nav-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            display: none;
+            box-shadow: 0 4px 10px rgba(93, 138, 168, 0.3);
+        }
+
         #results { display: none; text-align: right; }
+        .result-card { background: #fff; padding: 15px; border-radius: 15px; margin-bottom: 15px; border-right: 5px solid var(--primary-color); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+
+        @media (max-width: 600px) { .options-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1 style="font-size: 22px; color: var(--primary-color);">اختبار نافس الوطني 2026</h1>
-    <p>مدرسة سعيد بن المسيب بأبها | أ. عمرو العمري</p>
+    <h1>الاختبارات الوطنية "نافس" 2026 - تدريبات الصف الثالث الابتدائي</h1>
+    <p>مدرسة سعيد بن المسيب الابتدائية بأبها</p>
+    <p>معلم المادة: أ. عمرو العمري | مدير المدرسة: عبدالرحمن النقاز</p>
 </div>
 
 <div class="quiz-container" id="quiz-box">
-    <div id="progress" style="margin-bottom: 10px; color: #666;">سؤال 1 من 45</div>
-    <div class="question-text" id="question">تحميل السؤال...</div>
-    <div class="options-grid" id="options"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div id="q-counter" style="margin-bottom: 10px; font-size: 14px; color: #777;">السؤال 1 من 15</div>
+    <div class="question-text" id="question-text">جاري التحميل...</div>
+    <div class="options-grid" id="options-grid"></div>
     <button class="nav-btn" id="next-btn" onclick="nextQuestion()">السؤال التالي ←</button>
 </div>
 
 <div class="quiz-container" id="results">
-    <h2 style="text-align: center;">النتيجة النهائية: <span id="score"></span> / 45</h2>
-    <button class="nav-btn" style="display:block; margin: 10px auto;" onclick="window.print()">طباعة النتيجة 🖨️</button>
-    <div id="review-list"></div>
+    <h2 style="text-align: center; color: var(--primary-color);">نتيجتك النهائية</h2>
+    <h3 style="text-align: center;"><span id="final-score" style="font-size: 36px;">0</span> من 15</h3>
+    <button class="nav-btn" style="display:block; margin: 20px auto;" onclick="location.reload()">إعادة المحاولة</button>
+    <hr>
+    <h3>مراجعة الإجابات:</h3>
+    <div id="review-area"></div>
 </div>
 
 <script>
-    // [ملاحظة لأستاذ عمرو: يتم وضع مصفوفة الأسئلة هنا كما في الكود السابق]
-    const questions = [
-        { q: "ما القيمة المنزلية للرقم (5) في العدد 2534؟", a: ["5", "50", "500", "5000"], correct: 2 },
-        { q: "الصيغة القياسية للعدد 'ثلاثة آلاف وخمس مئة وأربعة' هي:", a: ["3540", "3054", "3504", "5340"], correct: 2 }
-        // ... (باقي الـ 45 سؤالاً)
+    const quizData = [
+        { q: "ما القيمة المنزلية للرقم (5) في العدد 2534؟", a: ["5", "50", "500", "5000"], c: 2 },
+        { q: "الصيغة القياسية للعدد 'ثلاثة آلاف وخمس مئة وأربعة' هي:", a: ["3540", "3054", "3504", "5340"], c: 2 },
+        { q: "أي الأعداد التالية يكمل النمط القفزي: 2400، 2600، 2800، ... ؟", a: ["2900", "3000", "2850", "3200"], c: 1 },
+        { q: "الترتيب الصحيح للأعداد (1250، 1520، 1052) من الأصغر إلى الأكبر هو:", a: ["1520، 1250، 1052", "1052، 1520، 1250", "1250، 1052، 1520", "1052، 1250، 1520"], c: 3 },
+        { q: "أكل محمد 3 قطع من فطيرة مقسمة إلى 8 قطع متساوية. ما الكسر الذي يمثل ما أكله؟", a: ["3/8", "5/8", "8/3", "3/5"], c: 0 },
+        { q: "كيف يكتب الكسر 'خمسة أسباع'؟", a: ["7/5", "5/7", "1/7", "5/5"], c: 1 },
+        { q: "أي الجمل التالية صحيحة؟", a: ["1/2 > 1/4", "1/4 > 1/2", "1/3 = 1/5", "1/8 > 1/3"], c: 0 },
+        { q: "ما الكسر المكافئ للكسر 1/2؟", a: ["1/3", "2/4", "2/3", "3/5"], c: 1 },
+        { q: "ناتج عملية الجمع: 345 + 213 = ...", a: ["558", "568", "557", "658"], c: 0 },
+        { q: "تقدير ناتج 49 + 32 بالتقريب إلى أقرب عشرة هو:", a: ["70", "80", "90", "100"], c: 1 },
+        { q: "مع أحمد 500 ريال، اشترى لعبة بمبلغ 200 ريال. كم ريالاً تبقى معه؟", a: ["200 ريال", "300 ريال", "700 ريال", "500 ريال"], c: 1 },
+        { q: "الجملة التي تمثل الجمع المتكرر (4 + 4 + 4) هي:", a: ["4 × 4", "3 × 4", "4 + 3", "12 × 1"], c: 1 },
+        { q: "وزعت أم 12 قطعة حلوى بالتساوي على 3 أطفال. كم نصيب كل طفل؟", a: ["3 قطع", "4 قطع", "6 قطع", "9 قطع"], c: 1 },
+        { q: "ناتج 7 × 8 = ...", a: ["54", "56", "48", "64"], c: 1 },
+        { q: "اشترى خالد 5 أقلام بسعر 4 ريالات للقلم الواحد. كم دفع للبائع؟", a: ["9 ريالات", "20 ريالاً", "1 ريال", "25 ريالاً"], c: 1 }
     ];
 
     let currentIdx = 0, score = 0, userAnswers = [];
 
     function loadQuestion() {
-        const qData = questions[currentIdx];
-        document.getElementById("progress").innerText = `سؤال ${currentIdx + 1} من ${questions.length}`;
-        document.getElementById("question").innerText = qData.q;
-        const optionsDiv = document.getElementById("options");
-        optionsDiv.innerHTML = "";
+        const q = quizData[currentIdx];
+        document.getElementById("q-counter").innerText = `السؤال ${currentIdx + 1} من 15`;
+        document.getElementById("progress-fill").style.width = `${((currentIdx + 1) / 15) * 100}%`;
+        document.getElementById("question-text").innerText = q.q;
+        const grid = document.getElementById("options-grid");
+        grid.innerHTML = "";
         document.getElementById("next-btn").style.display = "none";
-        qData.a.forEach((opt, i) => {
+
+        q.a.forEach((opt, i) => {
             const btn = document.createElement("button");
             btn.className = "option-btn";
             btn.innerText = opt;
             btn.onclick = () => {
-                const correct = qData.correct;
-                if(i === correct) { btn.classList.add("correct"); score++; }
-                else { btn.classList.add("wrong"); document.querySelectorAll(".option-btn")[correct].classList.add("correct"); }
+                if (i === q.c) { btn.classList.add("correct"); score++; }
+                else { btn.classList.add("wrong"); document.querySelectorAll(".option-btn")[q.c].classList.add("correct"); }
                 document.querySelectorAll(".option-btn").forEach(b => b.disabled = true);
+                userAnswers.push({q: q.q, user: i, correct: q.c});
                 document.getElementById("next-btn").style.display = "inline-block";
-                userAnswers.push({q: qData.q, user: i, correct: correct});
             };
-            optionsDiv.appendChild(btn);
+            grid.appendChild(btn);
         });
     }
 
     function nextQuestion() {
         currentIdx++;
-        if (currentIdx < questions.length) loadQuestion();
-        else {
-            document.getElementById("quiz-box").style.display = "none";
-            document.getElementById("results").style.display = "block";
-            document.getElementById("score").innerText = score;
-        }
+        if (currentIdx < quizData.length) loadQuestion();
+        else showResults();
+    }
+
+    function showResults() {
+        document.getElementById("quiz-box").style.display = "none";
+        document.getElementById("results").style.display = "block";
+        document.getElementById("final-score").innerText = score;
+        const area = document.getElementById("review-area");
+        userAnswers.forEach((ans, i) => {
+            const card = document.createElement("div");
+            card.className = "result-card";
+            card.innerHTML = `<strong>س${i+1}: ${ans.q}</strong><br><span style="color: ${ans.user === ans.correct ? 'green' : 'red'}">إجابتك: ${quizData[i].a[ans.user]}</span><br>${ans.user !== ans.correct ? `<span style="color: green">الإجابة الصحيحة: ${quizData[i].a[ans.correct]}</span>` : ''}`;
+            area.appendChild(card);
+        });
     }
     loadQuestion();
 </script>
